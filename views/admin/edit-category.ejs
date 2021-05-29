@@ -1,0 +1,38 @@
+<%- include('../_layouts/adminheader'); -%>
+    <div class="col-12 form-group">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2 class="contact-title">Edit a category</h2>
+            </div>
+            <div class="col-sm-3">
+                <a href="/admin/categories" class="btn">Back to all categories</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-12">
+            <form class="form-contact contact_form" method="POST" action="/admin/categories/edit-category/<%= id %>">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <input class="form-control valid" name="title" id="Title" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter the title'" value="<%= title %>" placeholder="Enter your name">
+
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="id" value="<%= id %>">
+                    <div class="form-group mt-3">
+                        <button type="submit" class="button button-contactForm boxed-btn">Submit</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+    <%- include('../_layouts/adminfooter'); -%>

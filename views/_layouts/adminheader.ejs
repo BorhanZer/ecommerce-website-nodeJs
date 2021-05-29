@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>admin area</title>
+
+    <!-- CSS here -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/flaticon.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/slicknav.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/themify-icons.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/nice-select.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/my-style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <!-- Header Start -->
+        <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="#"><img src="/assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="/admin/pages">Pages</a></li>
+                                    <li><a href="/admin/categories">Categories</a></li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                <li>
+                                    <div class="nav-search search-switch">
+                                        <span class="flaticon-search"></span>
+                                    </div>
+                                </li>
+                                <li> <a href="#"><span class="flaticon-user"></span></a></li>
+                                <li><a href="#"><span class="flaticon-shopping-cart"></span></a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+    </header>
+
+    <main>
+        <!--? slider Area Start -->
+        <div class="slider-area ">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height d-flex align-items-start slide-bg">
+                    <div class="container">
+                        <%- messages('messages', locals) %>
+                            <% if(errors){
+                            errors.forEach(function(error){
+                                %>
+                                <div class="alert alert-danger">
+                                    <%= error.msg %>
+                                </div>
+                                <%
+                            })
+                        }
+                        %>

@@ -1,0 +1,46 @@
+<%- include('../_layouts/adminheader'); -%>
+    <div class="col-12 form-group">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2 class="contact-title">Edit a page</h2>
+            </div>
+            <div class="col-sm-3">
+                <a href="/admin/pages" class="btn">Back to all pages</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-12">
+            <form class="form-contact contact_form" method="POST" action="/admin/pages/edit-page/<%= id %>">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input class="form-control valid" name="title" id="Title" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter the title'" value="<%= title %>" placeholder="Enter your name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input class="form-control valid" name="slug" id="slug" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter the slug'" value="<%= slug %>" placeholder="Slug">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <textarea class="form-control w-100" name="content" id="ta" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Content'" placeholder=" Enter Content"><%= content %></textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="button button-contactForm boxed-btn">Submit</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+
+
+    <%- include('../_layouts/adminfooter'); -%>

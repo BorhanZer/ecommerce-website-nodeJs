@@ -1,0 +1,58 @@
+<%- include('../_layouts/adminheader'); -%>
+    <div class="col-12 form-group">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2 class="contact-title">Categories</h2>
+            </div>
+            <div class="col-sm-3">
+                <a href="/admin/categories/add-category" class="btn">Add a new category</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr class="col-12">
+                            <th scope="col" class="col-8"> Category</th>
+                            <th class="text-center col-2" scope="col">Edit</th>
+                            <th class="text-center col-2" scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% categories.forEach(function(cat){ %>
+
+                            <tr>
+                                <td>
+                                    <h5>
+                                        <%= cat.title %>
+                                    </h5>
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a href="/admin/categories/edit-category/<%= cat._id %>" class="genric-btn primary">Edit</a>
+
+                                </td>
+
+
+                                <td class="text-center">
+
+                                    <a href="/admin/categories/delete-category/<%= cat._id %>" class="genric-btn danger confirmDeletion">Delete</a>
+
+                                </td>
+
+                            </tr>
+                            <% }) %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <%- include('../_layouts/adminfooter'); -%>

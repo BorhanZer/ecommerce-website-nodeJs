@@ -1,0 +1,73 @@
+<%- include('../_layouts/adminheader'); -%>
+    <div class="col-12 form-group">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2 class="contact-title">Pages</h2>
+            </div>
+            <div class="col-sm-3">
+                <a href="/admin/pages/add-page" class="btn">Add a new page</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table sorting">
+                    <thead>
+                        <tr class="col-12 home">
+                            <th scope="col" class="col-8"> Title</th>
+                            <th class="text-center col-2" scope="col">Edit</th>
+                            <th class="text-center col-2" scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% pages.forEach(function(page){ %>
+
+                            <tr id="id_<%= page._id %>" class="<%= page.slug%>">
+                                <td>
+                                    <h5>
+                                        <%= page.title %>
+                                    </h5>
+                                </td>
+
+                                <td class="text-center">
+
+                                    <a href="/admin/pages/edit-page/<%= page._id %>" class="genric-btn primary">Edit</a>
+
+                                </td>
+
+                                <% if(page.slug == "home") {%>
+                                    <td class="text-center"></td>
+                                    <% } else {%>
+                                        <td class="text-center">
+
+                                            <a href="/admin/pages/delete-page/<%= page._id %>" class="genric-btn danger confirmDeletion">Delete</a>
+
+                                        </td>
+                                        <% }%>
+                            </tr>
+                            <% }) %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
+    </script>
+    <script>
+        $('tbody').sortable({
+            items: "tr:not('.home')",
+            placeholder: "ui-state-hightlight",
+            update: function() {
+                var ids = $('tbody').sortable("serialize");
+
+                var url = "/admin/pages/reorder-pages";
+                $.post(url, ids);
+            }
+        });
+    </script>
+    <%- include('../_layouts/adminfooter'); -%>

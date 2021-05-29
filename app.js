@@ -8,10 +8,10 @@ mongoose.connect(config.datbase, { useNewUrlParser: true, useUnifiedTopology: tr
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-        console.log('Connected to mongodb');
-    })
-    // test commit
-    // init app
+    console.log('Connected to mongodb');
+})
+
+// init app
 
 
 var app = express();

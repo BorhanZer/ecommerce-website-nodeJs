@@ -5,3 +5,17 @@
 .ui-state-hightlight {
     background-color: #c3c3c3;
 }
+
+#imgPreview {
+    margin: 20px;
+}
+
+.image-list-products {
+    width: 100px;
+    height: 100px;
+}
+
+body,
+html {
+    height: 100%;
+}

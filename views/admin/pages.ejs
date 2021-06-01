@@ -51,23 +51,13 @@
 
                     </tbody>
                 </table>
+
             </div>
         </div>
 
 
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
-    </script>
-    <script>
-        $('tbody').sortable({
-            items: "tr:not('.home')",
-            placeholder: "ui-state-hightlight",
-            update: function() {
-                var ids = $('tbody').sortable("serialize");
 
-                var url = "/admin/pages/reorder-pages";
-                $.post(url, ids);
-            }
-        });
-    </script>
-    <%- include('../_layouts/adminfooter'); -%>
+
+
+    <%- include('../_layouts/adminfooter-sort'); -%>

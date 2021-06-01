@@ -1,0 +1,79 @@
+<%- include('../_layouts/adminheader'); -%>
+    <div class="col-12 form-group">
+        <div class="row">
+            <div class="col-sm-9">
+                <h2 class="contact-title">Products</h2>
+            </div>
+            <div class="col-sm-3">
+                <a href="/admin/products/add-product" class="btn">Add a new product</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <%if(count>0){%>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr class="col-12 home">
+                                <th scope="col" class="col-2"> Product</th>
+                                <th scope="col" class="col-1"> Price</th>
+                                <th scope="col" class="col-2"> Category</th>
+                                <th scope="col" class="col-3"> Product Image</th>
+                                <th class="text-center col-1" scope="col">Edit</th>
+                                <th class="text-center col-1" scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%products.forEach((product) =>{%>
+                                <tr>
+                                    <td>
+                                        <h5>
+                                            <%=product.title %>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        <h5>
+                                            <%="$"+parseFloat(product.price).toFixed(2) %>
+                                        </h5>
+                                    </td>
+                                    <td>
+                                        <h5>
+                                            <%=product.category %>
+                                        </h5>
+                                    </td>
+                                    <td>
+
+                                        <%if(product.image==""){%>
+                                            <img src="/images/noimage.jpg " class="image-list-products">
+                                            <%}else{%>
+                                                <img class="image-list-products" src="/product-images/<%=product._id%>/<%=product.image%> ">
+                                                <%}%>
+
+                                    </td>
+                                    <td class="text-center">
+
+                                        <a href="/admin/products/edit-product/<%= product._id %>" class="genric-btn primary">Edit</a>
+
+                                    </td>
+                                    <td class="text-center">
+
+                                        <a href="/admin/products/delete-product/<%= product._id %>" class="genric-btn danger confirmDeletion">Delete</a>
+
+                                    </td>
+                                </tr>
+                                <%});%>
+
+                        </tbody>
+                    </table>
+                </div>
+                <%}else{%>
+                    <h3 class="text-center">There are no products</h3>
+                    <%}%>
+        </div>
+
+
+    </div>
+
+
+    <%- include('../_layouts/adminfooter'); -%>

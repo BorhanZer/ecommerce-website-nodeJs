@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const { check, validationResult } = require('express-validator');
-const category = require('../modeles/category');
+
+
+// Get category model
 var Category = require('../modeles/category');
 
 
@@ -11,7 +13,7 @@ var Category = require('../modeles/category');
  *   Get categories index 
  */
 router.get('/', function(req, res) {
-    category.find(function(err, categories) {
+    Category.find(function(err, categories) {
         if (err) {
             return console.log(err);
         }
@@ -55,7 +57,7 @@ router.post('/add-category', async function(req, res) {
                     title: title,
                     slug: slug
                 });
-                category.save(function(err) {
+                Category.save(function(err) {
                     if (err) {
                         return console.log(err);
                     }

@@ -41,6 +41,19 @@ Page.find({}).sort({ sorting: 1 }).exec(function(err, pages) {
         app.locals.pages = pages;
     }
 });
+
+//set Categories Model
+var Category = require('./modeles/category');
+//Get Pages to pass to header.ejs
+Category.find({}).exec(function(err, categories) {
+    if (err) {
+        console.log(err);
+    } else {
+        app.locals.categories = categories;
+    }
+});
+
+
 // Express fileUpload midelware
 app.use(fileUpload());
 
@@ -62,23 +75,27 @@ app.use(function(req, res, next) {
     res.locals.messages = require('express-messages')(req, res);
     next();
 });
-
-
-// active url 
-app.use(function(req, res, next) {
-    res.active = req.path.split('/')[1]
+// cart
+app.use('*', function(req, res, next) {
+    res.locals.cart = req.session.cart;
     next();
 });
+
 // set routes
 
 var pages = require('./routes/pages');
+var products = require('./routes/products');
+var cart = require('./routes/cart');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
 
+
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
+app.use('/products', products);
+app.use('/cart', cart);
 app.use('/', pages);
 
 //start the server 

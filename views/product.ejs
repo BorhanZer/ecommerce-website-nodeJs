@@ -1,0 +1,39 @@
+<%- include('_layouts/header'); -%>
+
+    <div class=" section-top-border">
+        <h3>
+            <%=title%>
+        </h3>
+        <div class="row">
+            <div class="col-md-5" style="height: 40%;">
+                <a data-fancybox="gallery" href="/product-images/<%=p._id%>/<%=p.image%>">
+                <div class="single-gallery-image" style="background: url(/product-images/<%=p._id%>/<%=p.image%>);"></div>
+            </a>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6 left-padding">
+                <div style="height: 130px;">
+                    <%-p.desc%>
+                </div>
+                <p>
+                    <%="$"+parseFloat(p.price).toFixed(2)%>
+                </p>
+                <a class=" btn_1 " href="/cart/add/<%=p.slug%>">Add to cart</a>
+            </div>
+        </div>
+        <div class="row gallery-item">
+            <%galleryImage.forEach(function(image){%>
+                <%if(image!="thumbs"){%>
+                    <div class="col-md-2">
+                        <a data-fancybox="gallery" href="/product-images/<%=p._id%>/gallery/<%=image%>" class="img-pop-up">
+                        <div class="single-gallery-image" style="background: url(/product-images/<%=p._id%>/gallery/<%=image%>); height: 90px; width: 90px;"></div>
+                    </a>
+                    </div>
+                    <%}%>
+                        <%});%>
+
+        </div>
+    </div>
+
+
+    <%- include('_layouts/footer'); -%>

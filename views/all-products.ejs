@@ -16,13 +16,23 @@
                                         <a href="/products/<%=p.category%>/<%=p.slug%>">
                                         <img src="/product-images/<%=p.id%>/<%=p.image%>" alt="">
                                         </a>
-                                        <div class="img-cap">
-                                            <a href="/cart/add/<%=p.slug%>"> <span>Add to cart</span></a>
+                                        <%if(loggedin){%>
+                                            <div class="img-cap">
 
-                                        </div>
-                                        <div class="favorit-items">
-                                            <span class="flaticon-heart"></span>
-                                        </div>
+                                                <a href="/cart/add/<%=p.slug%>"> <span>Add to cart</span></a>
+
+                                            </div>
+                                            <%}else{%>
+                                                <div class="img-cap">
+
+                                                    <a href="/users/login"> <span>You must be logged in</span></a>
+
+                                                </div>
+                                                <%}%>
+
+                                                    <div class="favorit-items">
+                                                        <span class="flaticon-heart"></span>
+                                                    </div>
                                     </div>
                                     <div class="popular-caption">
                                         <h3>

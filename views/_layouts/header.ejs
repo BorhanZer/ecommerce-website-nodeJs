@@ -71,8 +71,8 @@
                                         <span class="flaticon-search"></span>
                                     </div>
                                 </li>
-                                <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
-                                <li><a href="/cart/checkout"><span class="flaticon-shopping-cart">
+                                <%if(user){%>
+                                    <li><a href="/cart/checkout"><span class="flaticon-shopping-cart">
                                     <%if(typeof cart !=="undefined"){%>
                                        (<%=cart.length%>)
                                     <%}else{%>
@@ -80,6 +80,27 @@
                                    <% }%>
                                 </span>
                                 </a> </li>
+                                    <%}%>
+
+                                        <%if(user){%>
+                                            <li><a href="/users/logout"><span class="flaticon-user"> Hi (<%=user.username%>) logout</span></a></li>
+                                            <%if(user.admin==1){%>
+                                                <li><a href="/admin/pages/"><span>Admin Area</span> </a></li>
+                                                <%}%>
+                                                    <%}else{%>
+                                                        <li><a href="/users/login"><span class="flaticon-user"> Login</span></a></li>
+                                                        <li><a href="/users/register"><span class="flaticon-register">Register</span></a></li>
+                                                        <% }%>
+
+                                                            </a>
+                                                            </li>
+
+
+
+
+
+
+
                             </ul>
                         </div>
                     </div>
@@ -97,34 +118,44 @@
         <section class="blog_area align-items-start ">
             <div class="container">
                 <%- messages('messages', locals) %>
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="blog_right_sidebar">
-                                <aside class="single_sidebar_widget post_category_widget">
-                                    <h4 class="widget_title">Category</h4>
-                                    <ul class="list cat-list">
-                                        <li>
-                                            <a href="/products">
-                                                <p>All products</p>
-                                            </a>
-                                        </li>
-                                        <%categories.forEach(function(c){%>
-                                            <li class="list-groupe-item">
-                                                <a href="/products/<%=c.slug%>">
-                                                    <p>
-                                                        <%=c.title%>
-                                                    </p>
-                                                </a>
-                                            </li>
-                                            <%});%>
-
-
-
-
-                                    </ul>
-                                </aside>
-                            </div>
+                    <% if(errors){
+                    errors.forEach(function(error){
+                        %>
+                        <div class="alert alert-danger">
+                            <%= error.msg %>
                         </div>
+                        <%
+                    })
+                }
+                %>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="blog_right_sidebar">
+                                        <aside class="single_sidebar_widget post_category_widget">
+                                            <h4 class="widget_title">Category</h4>
+                                            <ul class="list cat-list">
+                                                <li>
+                                                    <a href="/products">
+                                                        <p>All products</p>
+                                                    </a>
+                                                </li>
+                                                <%categories.forEach(function(c){%>
+                                                    <li class="list-groupe-item">
+                                                        <a href="/products/<%=c.slug%>">
+                                                            <p>
+                                                                <%=c.title%>
+                                                            </p>
+                                                        </a>
+                                                    </li>
+                                                    <%});%>
 
-                        <div class="col-lg-8 ">
-                            <div class="blog_left_sidebar">
+
+
+
+                                            </ul>
+                                        </aside>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-8 ">
+                                    <div class="blog_left_sidebar">

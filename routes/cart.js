@@ -1,14 +1,17 @@
 var express = require('express');
 const { update } = require('../modeles/product');
 var router = express.Router();
+var auth = require('../config/auth');
+var isUser = auth.isUser;
 
-// Get page model
+
+// Get Product model
 var Product = require('../modeles/product');
 
 /*
  *  Get add product to cart
  */
-router.get('/add/:product', function(req, res) {
+router.get('/add/:product', isUser, function(req, res) {
     var slug = req.params.product;
     Product.findOne({ slug: slug }, function(err, p) {
         if (err) {
@@ -50,7 +53,7 @@ router.get('/add/:product', function(req, res) {
 /*
  *  Get checkout
  */
-router.get('/checkout', function(req, res) {
+router.get('/checkout', isUser, function(req, res) {
     res.render('checkout', {
         title: 'checkout',
         cart: req.session.cart
@@ -60,7 +63,7 @@ router.get('/checkout', function(req, res) {
 /*
  *  Get get update product
  */
-router.get('/update/:product', function(req, res) {
+router.get('/update/:product', isUser, function(req, res) {
     var slug = req.params.product;
     var cart = req.session.cart;
     var action = req.query.action;
@@ -99,7 +102,7 @@ router.get('/update/:product', function(req, res) {
 /*
  *  Get clear cart
  */
-router.get('/clear', function(req, res) {
+router.get('/clear', isUser, function(req, res) {
     if (typeof req.session.cart != "undefined") {
         delete req.session.cart;
     }
@@ -109,7 +112,7 @@ router.get('/clear', function(req, res) {
 /*
  *  Get buynow
  */
-router.get('/buynow', function(req, res) {
+router.get('/buynow', isUser, function(req, res) {
     if (typeof req.session.cart != "undefined") {
         delete req.session.cart;
     }

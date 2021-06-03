@@ -18,7 +18,13 @@
                 <p>
                     <%="$"+parseFloat(p.price).toFixed(2)%>
                 </p>
-                <a class=" btn_1 " href="/cart/add/<%=p.slug%>">Add to cart</a>
+                <%if(loggedin){%>
+                    <a class=" btn_1 " href="/cart/add/<%=p.slug%>">Add to cart</a>
+                    <%}else{%>
+                        <a class=" btn_1 " href="/users/login"> <span>You must be logged in</span></a>
+
+                        <%}%>
+
             </div>
         </div>
         <div class="row gallery-item">

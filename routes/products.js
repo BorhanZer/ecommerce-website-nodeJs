@@ -13,12 +13,14 @@ var Category = require('../modeles/category');
  *  Get all products
  */
 router.get('/', function(req, res) {
+    var loggedin = (req.isAuthenticated()) ? true : false;
     Product.find(function(err, products) {
         if (err) {
             console.log(err);
         }
         res.render('all-products', {
             title: "All products",
+            loggedin: loggedin,
             products: products
         });
 
@@ -26,10 +28,11 @@ router.get('/', function(req, res) {
 });
 
 /*
- *  Get all products by category
+ *  Get  products by category
  */
 router.get('/:category', function(req, res) {
     var categorySlug = req.params.category;
+    var loggedin = (req.isAuthenticated()) ? true : false;
     Category.findOne({ slug: categorySlug }, function(err, c) {
         Product.find({ category: categorySlug }, function(err, products) {
             if (err) {
@@ -37,7 +40,9 @@ router.get('/:category', function(req, res) {
             }
             res.render('cat-products', {
                 title: c.title,
-                products: products
+                products: products,
+                loggedin: loggedin
+
             });
 
         });
@@ -49,12 +54,13 @@ router.get('/:category', function(req, res) {
  *  Get product details
  */
 router.get('/:category/:product', function(req, res) {
+    var loggedin = (req.isAuthenticated()) ? true : false;
     var galleryImage = null;
     Product.findOne({ slug: req.params.product }, function(err, product) {
         if (err) {
             console.log(err);
         } else {
-            var galleryImage = 'public/product-images/' + product._id + '/gallery';
+            galleryImage = 'public/product-images/' + product._id + '/gallery';
 
             fs.readdir(galleryImage, function(err, files) {
                 if (err) {
@@ -64,7 +70,8 @@ router.get('/:category/:product', function(req, res) {
                     res.render('product', {
                         title: product.title,
                         p: product,
-                        galleryImage: galleryImage
+                        galleryImage: galleryImage,
+                        loggedin: loggedin
                     })
                 }
             });

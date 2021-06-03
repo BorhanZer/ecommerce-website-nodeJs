@@ -5,6 +5,7 @@ var config = require('./config/database');
 var session = require('express-session');
 var fileUpload = require('express-fileupload');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 //Connect to db 
 mongoose.connect(config.datbase, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -75,9 +76,16 @@ app.use(function(req, res, next) {
     res.locals.messages = require('express-messages')(req, res);
     next();
 });
+
+// passport Middlware
+app.use(passport.initialize());
+app.use(passport.session());
+// passport config
+require('./config/passport')(passport);
 // cart
 app.use('*', function(req, res, next) {
     res.locals.cart = req.session.cart;
+    res.locals.user = req.user || null;
     next();
 });
 
@@ -86,6 +94,7 @@ app.use('*', function(req, res, next) {
 var pages = require('./routes/pages');
 var products = require('./routes/products');
 var cart = require('./routes/cart');
+var users = require('./routes/users');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
@@ -96,6 +105,7 @@ app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
 app.use('/products', products);
 app.use('/cart', cart);
+app.use('/users', users);
 app.use('/', pages);
 
 //start the server 

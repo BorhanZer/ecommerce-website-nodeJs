@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const { check, validationResult } = require('express-validator');
-
+var auth = require('../config/auth');
+var isAdmin = auth.isAdmin;
 
 // Get category model
 var Category = require('../modeles/category');
@@ -12,7 +13,7 @@ var Category = require('../modeles/category');
 /*
  *   Get categories index 
  */
-router.get('/', function(req, res) {
+router.get('/', isAdmin, function(req, res) {
     Category.find(function(err, categories) {
         if (err) {
             return console.log(err);
@@ -26,7 +27,7 @@ router.get('/', function(req, res) {
 /*
  *   Get add category 
  */
-router.get('/add-category', function(req, res) {
+router.get('/add-category', isAdmin, function(req, res) {
     var title = "";
 
     res.render('admin/add-category', {
@@ -38,7 +39,7 @@ router.get('/add-category', function(req, res) {
 /*
  *   Post add category 
  */
-router.post('/add-category', async function(req, res) {
+router.post('/add-category', isAdmin, async function(req, res) {
     await check('title', 'Title must have a value.').notEmpty().run(req);
 
     var title = req.body.title;
@@ -88,7 +89,7 @@ router.post('/add-category', async function(req, res) {
 /*
  *   Get edit categories 
  */
-router.get('/edit-category/:id', function(req, res) {
+router.get('/edit-category/:id', isAdmin, function(req, res) {
     Category.findById(req.params.id, function(err, category) {
         if (err)
             return console.log("borhan " + err);
@@ -106,7 +107,7 @@ router.get('/edit-category/:id', function(req, res) {
 /*
  *   POST edit category 
  */
-router.post('/edit-category/:id', async function(req, res) {
+router.post('/edit-category/:id', isAdmin, async function(req, res) {
     await check('title', 'Title must have a value.').notEmpty().run(req);
 
     var title = req.body.title;
@@ -163,7 +164,7 @@ router.post('/edit-category/:id', async function(req, res) {
 /*
  *   Get delete category 
  */
-router.get('/delete-category/:id', function(req, res) {
+router.get('/delete-category/:id', isAdmin, function(req, res) {
     Category.findByIdAndDelete(req.params.id, function(err) {
         if (err) {
             return console.log(err);

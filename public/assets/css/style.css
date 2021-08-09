@@ -3508,7 +3508,8 @@ input:focus {
 }
 
 .popular-items .single-popular-items .popular-img img {
-    width: 100%
+    width: 120px;
+    height: 160px;
 }
 
 .popular-items .single-popular-items .popular-img .img-cap {
@@ -6667,9 +6668,8 @@ del {
 .single-gallery-image {
     margin-top: 30px;
     background-repeat: no-repeat !important;
-    background-position: center center !important;
-    background-size: cover !important;
-    height: 200px
+    background-size: 100% 100% !important;
+    height: 250px;
 }
 
 .list-style {

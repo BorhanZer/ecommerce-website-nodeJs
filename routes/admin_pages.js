@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const { check, validationResult } = require('express-validator');
 var Page = require('../modeles/page');
+var auth = require('../config/auth');
+var isAdmin = auth.isAdmin;
 
 
 
@@ -9,7 +11,7 @@ var Page = require('../modeles/page');
 /*
  *   Get pages index 
  */
-router.get('/', function(req, res) {
+router.get('/', isAdmin, function(req, res) {
     Page.find({}).sort({ sorting: 1 }).exec(function(err, pages) {
         res.render('admin/pages', {
             pages: pages
@@ -20,7 +22,7 @@ router.get('/', function(req, res) {
 /*
  *   Get add pages 
  */
-router.get('/add-page', function(req, res) {
+router.get('/add-page', isAdmin, function(req, res) {
     var title = "";
     var slug = "";
     var content = "";
@@ -35,7 +37,7 @@ router.get('/add-page', function(req, res) {
 /*
  *   Get edit pages 
  */
-router.get('/edit-page/:id', function(req, res) {
+router.get('/edit-page/:id', isAdmin, function(req, res) {
     Page.findById(req.params.id, function(err, page) {
         if (err)
             return console.log("borhan " + err);
@@ -52,7 +54,7 @@ router.get('/edit-page/:id', function(req, res) {
 
 });
 // reorder function
-function reorder(ids, callback) {
+function reorder(ids, isAdmin, callback) {
     var count = 0;
 
     for (var i = 0; i < ids.length; i++) {
@@ -79,7 +81,7 @@ function reorder(ids, callback) {
 /*
  *  Post reorder-pages"
  */
-router.post('/reorder-pages', function(req, res) {
+router.post('/reorder-pages', isAdmin, function(req, res) {
     var ids = req.body['id'];
 
     reorder(ids, function() {
@@ -98,7 +100,7 @@ router.post('/reorder-pages', function(req, res) {
 /*
  *   POST add pages 
  */
-router.post('/add-page', async function(req, res) {
+router.post('/add-page', isAdmin, async function(req, res) {
     await check('title', 'Title must have a value.').notEmpty().run(req);
     await check('title', 'content must have a value.').notEmpty().run(req);
 
@@ -159,7 +161,7 @@ router.post('/add-page', async function(req, res) {
 /*
  *   POST edit pages 
  */
-router.post('/edit-page/:id', async function(req, res) {
+router.post('/edit-page/:id', isAdmin, async function(req, res) {
     await check('title', 'Title must have a value.').notEmpty().run(req);
     await check('content', 'content must have a value.').notEmpty().run(req);
 
@@ -224,7 +226,7 @@ router.post('/edit-page/:id', async function(req, res) {
 /*
  *   Get delete page 
  */
-router.get('/delete-page/:id', function(req, res) {
+router.get('/delete-page/:id', isAdmin, function(req, res) {
     Page.findByIdAndDelete(req.params.id, function(err) {
         if (err) {
             return console.log(err);

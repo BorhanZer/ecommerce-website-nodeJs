@@ -12,13 +12,15 @@ var path = require('path');
 // Get product, category model
 var Product = require('../modeles/product');
 var Category = require('../modeles/category');
+var auth = require('../config/auth');
+var isAdmin = auth.isAdmin;
 
 
 
 /*
  *   Get products index 
  */
-router.get('/', function(req, res) {
+router.get('/', isAdmin, function(req, res) {
     var count;
     Product.countDocuments(function(err, c) {
         count = c;
@@ -34,7 +36,7 @@ router.get('/', function(req, res) {
 /*
  *   Get add product
  */
-router.get('/add-product', function(req, res) {
+router.get('/add-product', isAdmin, function(req, res) {
     var title = "";
     var desc = "";
     var price = "";
@@ -52,7 +54,7 @@ router.get('/add-product', function(req, res) {
 /*
  *   Get edit product 
  */
-router.get('/edit-product/:id', function(req, res) {
+router.get('/edit-product/:id', isAdmin, function(req, res) {
     var errors;
     if (req.session.errors) {
         errors = req.session.errors;
@@ -94,7 +96,7 @@ router.get('/edit-product/:id', function(req, res) {
 /*
  *   POST add products 
  */
-router.post('/add-product', async function(req, res) {
+router.post('/add-product', isAdmin, async function(req, res) {
     if (req.files) {
         var imageFile = typeof req.files.image !== "undefined" ? req.files.image.name : "";
     } else {
@@ -194,7 +196,7 @@ router.post('/add-product', async function(req, res) {
 /*
  *   POST edit product 
  */
-router.post('/edit-product/:id', async function(req, res) {
+router.post('/edit-product/:id', isAdmin, async function(req, res) {
     if (req.files) {
         var imageFile = typeof req.files.image !== "undefined" ? req.files.image.name : "";
     } else {
@@ -281,7 +283,7 @@ router.post('/edit-product/:id', async function(req, res) {
 /*
  *   Post upload gallery 
  */
-router.post('/product-gallery/:id', function(req, res) {
+router.post('/product-gallery/:id', isAdmin, function(req, res) {
     var productImage = req.files.file;
     var id = req.params.id;
     var path = 'public/product-images/' + id + '/gallery/' + req.files.file.name;
@@ -305,7 +307,7 @@ router.post('/product-gallery/:id', function(req, res) {
 /*
  *   Get delete gallery image
  */
-router.get('/delete-image/:image', function(req, res) {
+router.get('/delete-image/:image', isAdmin, function(req, res) {
     var path = 'public/product-images/' + req.query.id + '/gallery/' + req.params.image;
     var pathThumbs = 'public/product-images/' + req.query.id + '/gallery/thumbs/' + req.params.image;
 
@@ -328,7 +330,7 @@ router.get('/delete-image/:image', function(req, res) {
 /*
  *   Get delete product 
  */
-router.get('/delete-product/:id', function(req, res) {
+router.get('/delete-product/:id', isAdmin, function(req, res) {
     var id = req.params.id;
     var pathFolder = 'public/product-images/' + id;
     fs.remove(pathFolder, function(err) {

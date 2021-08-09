@@ -4,11 +4,12 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "jest"
     },
     "author": "zerroug borhan",
     "license": "ISC",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "connect-flash": "^0.1.1",
         "ejs": "^3.1.6",
@@ -21,6 +22,12 @@
         "mkdirp": "^1.0.4",
         "mongoose": "^5.12.10",
         "multer": "^1.4.2",
+        "passport": "^0.4.1",
+        "passport-local": "^1.0.0",
         "resize-img": "^2.0.0"
+    },
+    "devDependencies": {
+        "jest": "^27.0.4",
+        "supertest": "^6.1.3"
     }
 }

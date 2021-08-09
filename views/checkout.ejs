@@ -1,0 +1,119 @@
+<%- include('_layouts/header'); -%>
+
+    <% if (typeof cart !== "undefined"){%>
+
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col"></th>
+                            <th scope="col">SubTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%var total = 0;%>
+                            <%cart.forEach(function(product){%>
+                                <%var sub =parseFloat(product.qty*product.price).toFixed(2);%>
+                                    <%total += +sub%>
+                                        <tr>
+                                            <td>
+                                                <div class="media">
+                                                    <div class="d-flex">
+                                                        <img src="<%=product.image%>" alt="product image">
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <p>
+                                                            <%=product.title%>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h5>
+                                                    <%="$"+product.price%>
+                                                </h5>
+                                            </td>
+                                            <td colspan="2">
+                                                <div class="product_count">
+                                                    <a style="color: black;" href="/cart/update/<%=product.title%>?action=remove"><span class="input-number-decrement"> <i class="ti-minus"></i></span></a>
+                                                    <input class="input-number" type="text" value="<%=product.qty%>" min="0" max="10" disabled>
+                                                    <a style="color: black;" href="/cart/update/<%=product.title%>?action=add"><span class="input-number-increment"> <i class="ti-plus"></i></span></a>
+                                                    <a style="color: black; padding-left: 5px;" href="/cart/update/<%=product.title%>?action=clear"> <span class="input-number">Clear</span></a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h5>
+                                                    <%="$"+sub%>
+                                                </h5>
+                                            </td>
+                                        </tr>
+
+
+                                        <%});%>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <h5>total</h5>
+                                                </td>
+                                                <td>
+                                                    <h5>
+                                                        <%="$"+parseFloat(total).toFixed(2);%>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="bottom_button">
+                                                <td>
+                                                    <a class="btn_1 confirmClearCart" href="/cart/clear">Clear Cart</a>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <div class="cupon_text float-right">
+                                                        <a class="btn_1 buynow" href="#">Buy now</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                    </tbody>
+                </table>
+
+                <form class="pp" action="https://www.sandbox.paypal.com/us/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="cmd" value="_cart">
+                    <input type="hidden" name="upload" value="1">
+                    <input type="hidden" name="business" value="zerrougborhan@gmail.com">
+                    <%var num = 0%>
+                        <%cart.forEach(function(p){%>
+                            <%num++%>
+                                <input type="hidden" name="<%='item_name_'+num%>" value="<%=p.title%>">
+                                <input type="hidden" name="<%='amount_'+num%>" value="<%=p.price%>">
+                                <input type="hidden" name="quantity<%=num%>" value="<%=p.qty%>">
+                                <%});%>
+                                    <input type="hidden" name="currency_code" value="USD">
+                                    <input type="hidden" name="amount" value="<%=parseFloat(total).toFixed(2) %>">
+                                    <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+                </form>
+            </div>
+        </div>
+        <% } else {%>
+            <div class="single-slider slider-height2 d-flex align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap text-center">
+                                <h2>Your cart is empty.</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%}%>
+
+
+                <%- include('_layouts/footer'); -%>

@@ -4,7 +4,7 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "jest"
     },
     "author": "zerroug borhan",
     "license": "ISC",
@@ -25,5 +25,9 @@
         "passport": "^0.4.1",
         "passport-local": "^1.0.0",
         "resize-img": "^2.0.0"
+    },
+    "devDependencies": {
+        "jest": "^27.0.4",
+        "supertest": "^6.1.3"
     }
 }
